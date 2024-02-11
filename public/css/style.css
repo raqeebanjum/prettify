@@ -1,0 +1,49 @@
+/* style.css - Spotify Visualizer Styling */
+
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Prevents scrolling if the content overflows */
+}
+
+#background {
+    position: fixed; /* Full-screen background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensure it's behind all other content */
+    transition: background 0.5s ease; /*Smooth transition for background changes */
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 10%; /* Add some padding on the sides */
+}
+
+#cover-art {
+    width: 40%; /* Adjust size as needed */
+    max-width: 500px; /* Maximum size */
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5); /* Soft shadow for depth */
+    margin-right: 5%; /* Space between image and text */
+}
+
+#text-info {
+    text-align: left;
+    color: #fff; /* White text for readability */
+}
+
+#track-name {
+    font-size: 2.5em; /* Large text for track title */
+    margin: 0 0 0.25em 0; /* Adjust bottom margin for spacing */
+}
+
+#artist-name {
+    font-size: 1.8em; /* Slightly smaller text for artist */
+    margin: 0; /* No additional margin needed */
+}
