@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +7,8 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/colorthief@2.3.0/dist/color-thief.umd.js"></script>
 </head>
-
 <body>
-    <div id="background"></div> <!-- Gradient background -->
+    <div id="background"></div>
     <div id="content">
         <img id="cover-art" src="" alt="Cover Art">
         <div id="text-info">
@@ -18,48 +16,7 @@
             <p id="artist-name">Artist Name</p>
         </div>
     </div>
-
-    <script>
-        async function fetchTrackData() {
-            try {
-                const response = await fetch('/current-track');
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data && data.item) {
-                        const coverArtUrl = data.item.album.images[0].url;
-                        const img = new Image();
-                        img.crossOrigin = "anonymous"; // Set crossOrigin to anonymous
-                        img.src = coverArtUrl;
-
-                        img.onload = function () {
-                            const colorThief = new ColorThief();
-                            const palette = colorThief.getPalette(img, 2);
-                            const gradient = `linear-gradient(to right, rgb(${palette[0].join(',')}), rgb(${palette[1].join(',')}))`;
-                            document.getElementById('background').style.background = gradient;
-                        };
-
-                        document.getElementById('cover-art').src = coverArtUrl;
-                        document.getElementById('track-name').textContent = data.item.name;
-                        document.getElementById('artist-name').textContent = data.item.artists.map(artist => artist.name).join(', ');
-                    } else {
-                        // Handle case when no track is playing
-                        document.getElementById('track-name').textContent = 'No track playing';
-                        document.getElementById('artist-name').textContent = '';
-                        document.getElementById('cover-art').style.display = 'none';
-                        document.getElementById('background').style.background = '';
-                    }
-                } else {
-                    console.error('Failed to fetch track data');
-                }
-            } catch (error) {
-                console.error('Error fetching track data:', error);
-            }
-        }
-
-        setInterval(fetchTrackData, 500); // Fetch track data every .5 seconds
-        fetchTrackData(); // Initial fetch
-
-    </script>
+    <button id="fullscreen-btn" class="fullscreen-btn">Go Full Screen</button>
+    <script src="visualizer.js"></script>
 </body>
-
 </html>
