@@ -14,7 +14,7 @@ Prettify is a web-based Spotify Visualizer that offers a mesmerizing experience 
 
 ### Prerequisites
 
-- A Spotify Premium account
+- A Spotify account
 - Node.js and npm installed on your machine
 
 ### Environment Setup
