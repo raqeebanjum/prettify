@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Time Range Selector -->
+        <div class="time-range-selector mb-8">
+            <button class="time-btn active" data-range="short_term">Last 4 Weeks</button>
+            <button class="time-btn" data-range="medium_term">Last 6 Months</button>
+            <button class="time-btn" data-range="long_term">All Time</button>
+        </div>
+
+        <!-- Top Artists Section -->
+        <section class="stats-section mb-12">
+            <h2 class="section-title">Top Artists</h2>
+            <div id="top-artists" class="grid-container">
+                <!-- Artists will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Top Tracks Section -->
+        <section class="stats-section">
+            <h2 class="section-title">Top Tracks</h2>
+            <div id="top-tracks" class="tracks-container">
+                <!-- Tracks will be inserted here -->
+            </div>
+        </section>
+    </div>
+
+    <a href="/visualizer.html" class="back-btn">
+        <button class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3">
+            Back
+        </button>
+    </a>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

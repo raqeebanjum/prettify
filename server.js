@@ -7,9 +7,20 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+const scope = [
+    'user-read-currently-playing',
+    'user-top-read',
+    'playlist-read-private',
+    'playlist-read-collaborative',
+    'user-read-private',
+    'user-read-email'
+].join(' ');
+
+
+
 // Replace clientID and clientSecret with your clientID and clientSecret from spotify developer API
-const clientId = 'Client ID Here';
-const clientSecret = 'Client Secret Here';
+const clientId = 'd68fdfe789244d1f8031dc1a1fa27cae';
+const clientSecret = 'c56b52bbd5984ce1ba9b4a4f351b0e05';
 const redirectUri = 'http://localhost:3000/callback';
 
 app.use(session({
@@ -26,6 +37,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/profile', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'profile.html'));
+});
+
 app.get('/login', (req, res) => {
     const scope = 'user-read-currently-playing';
     res.redirect(`https://accounts.spotify.com/authorize?${qs.stringify({
@@ -35,6 +50,65 @@ app.get('/login', (req, res) => {
         redirect_uri: redirectUri,
     })}`);
 });
+
+app.get('/user-profile', async (req, res) => {
+    if (!req.session.accessToken) {
+        return res.status(401).send('Access Token is missing');
+    }
+    try {
+        const response = await axios.get('https://api.spotify.com/v1/me', {
+            headers: {
+                'Authorization': `Bearer ${req.session.accessToken}`
+            }
+        });
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).send(error.message);
+    }
+});
+
+
+app.get('/top-artists', async (req, res) => {
+    if (!req.session.accessToken) {
+        return res.status(401).send('Access Token is missing');
+    }
+    try {
+        const response = await axios.get('https://api.spotify.com/v1/me/top/artists', {
+            headers: {
+                'Authorization': `Bearer ${req.session.accessToken}`
+            },
+            params: {
+                time_range: req.query.time_range || 'short_term',
+                limit: 10
+            }
+        });
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).send(error.message);
+    }
+});
+
+app.get('/top-tracks', async (req, res) => {
+    if (!req.session.accessToken) {
+        return res.status(401).send('Access Token is missing');
+    }
+    try {
+        const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
+            headers: {
+                'Authorization': `Bearer ${req.session.accessToken}`
+            },
+            params: {
+                time_range: req.query.time_range || 'short_term',
+                limit: 10
+            }
+        });
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).send(error.message);
+    }
+});
+
+
 
 app.get('/callback', async (req, res) => {
     const code = req.query.code || null;

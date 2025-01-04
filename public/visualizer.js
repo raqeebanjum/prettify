@@ -113,6 +113,22 @@ function hideCursorAndButton() {
     });
 }
 
+async function loadProfileIcon() {
+    try {
+        const response = await fetch('/user-profile');
+        const data = await response.json();
+        
+        if (data.images && data.images.length > 0) {
+            document.getElementById('profile-icon').src = data.images[0].url;
+        }
+    } catch (error) {
+        console.error('Error loading profile icon:', error);
+    }
+}
+
+// Call this when the page loads
+loadProfileIcon();
+
 function showCursorAndButton() {
     // Clear timeout and remove event listener to prevent it from running when not in full-screen
     clearTimeout(mouseMoveTimeout);
