@@ -19,8 +19,8 @@ const scope = [
 
 
 // Replace clientID and clientSecret with your clientID and clientSecret from spotify developer API
-const clientId = 'd68fdfe789244d1f8031dc1a1fa27cae';
-const clientSecret = 'c56b52bbd5984ce1ba9b4a4f351b0e05';
+const clientId = 'here';
+const clientSecret = 'and here';
 const redirectUri = 'http://localhost:3000/callback';
 
 app.use(session({
